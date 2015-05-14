@@ -1,6 +1,17 @@
--- Création des tables
+-- CRÉATION DES TABLES
+------------------------------------------------------------------
+-- Conventions d'écriture
+------------------------------------------------------------------
+-- 
+-- Les noms des tables et attributs :
+-- 		- tout en minuscule
+-- 		- au singulier
+-- 		- noms composés séparés par des _
+--
+-- /!\ respecter les noms choisis dans le MLD
+------------------------------------------------------------------
 
-create table if not exists editeur (
+create table editeur (
 	id integer PRIMARY KEY,
 	nom varchar(20) NOT NULL,
 	contact varchar(30) NOT NULL,
@@ -8,7 +19,9 @@ create table if not exists editeur (
 	UNIQUE (nom, contact, url)
 );
 
-create table if not exists client (
+create sequence seq_editeur start 1;
+
+create table client (
 	login varchar(12) PRIMARY KEY,
 	nom varchar(30) NOT NULL,
 	prenom varchar(30) NOT NULL,
@@ -16,15 +29,18 @@ create table if not exists client (
 	UNIQUE (nom,prenom)
 );
 
-create table if not exists carte_prepayee (
+create table carte_prepayee (
 	numero integer PRIMARY KEY,
 	montant_depart integer NOT NULL,
 	montant_courant integer,
 	date_expiration date,
-	client varchar(12) references client(login)
+	client varchar(12) references client(login),
+	CHECK (date_expiration > CURRENT_DATE)
 );
 
-create table if not exists carte_bancaire (
+create sequence seq_carte_prepayee start 1;
+
+create table carte_bancaire (
 	id integer PRIMARY KEY,
 	numero_carte integer NOT NULL,
 	date_fin_validité date NOT NULL,
@@ -33,6 +49,8 @@ create table if not exists carte_bancaire (
 	CHECK (cryptogramme between 100 and 999),
 	CHECK (date_fin_validité > NOW())
 );
+
+create sequence seq_carte_bancaire start 1;
 
 /*
 create table application (
@@ -48,7 +66,7 @@ create table ressource (
 	editeur integer references editeur(id) NOT NULL
 );
 */
-create table if not exists produit (
+create table produit (
 	titre varchar (40) PRIMARY KEY,
 	description varchar(300),
 	ressource_pour varchar(40) references produit(titre),
@@ -62,7 +80,7 @@ create view v_ressource as
 	select titre from produit where ressource_pour IS NOT NULL;
 
 
-create table if not exists achat (
+create table achat (
 	id integer PRIMARY KEY,
 	duree int NOT NULL,
 	acheteur varchar(12) references client(login) NOT NULL,
@@ -70,7 +88,9 @@ create table if not exists achat (
 	produit varchar(40) references produit(titre)
 );
 
-create table if not exists avis (
+create sequence seq_achat start 1;
+
+create table avis (
 	auteur varchar(12) references client(login),
 	app varchar(40) references produit(titre),
 	note integer,
@@ -79,7 +99,7 @@ create table if not exists avis (
 	CHECK (note between 0 and 5)
 );
 
-create table if not exists abonnement (
+create table abonnement (
 	app varchar(40) references produit(titre),
 	achat integer references achat(id),
 	automatique integer,
@@ -89,14 +109,16 @@ create table if not exists abonnement (
 	CHECK (nb_mois > 0)
 );
 
-create table if not exists systeme_exploitation (
+create table systeme_exploitation (
 	id integer PRIMARY KEY,
 	constructeur varchar(20) NOT NULL,
 	version varchar(10) NOT NULL,
 	UNIQUE (constructeur, version)
 );
 
-create table if not exists modele (
+create sequence seq_systeme_exploitation start 1;
+
+create table modele (
 	id integer PRIMARY KEY,
 	constructeur varchar(20) NOT NULL,
 	designation varchar(30) NOT NULL,
@@ -104,19 +126,23 @@ create table if not exists modele (
 	UNIQUE (constructeur, designation)
 );
 
-create table if not exists terminal (
+create sequence seq_modele start 1;
+
+create table terminal (
 	numero_serie varchar(20) PRIMARY KEY,
 	modele integer references modele(id) NOT NULL,
 	proprietaire varchar(12) references client(login) NOT NULL
 );
 
-create table if not exists produit_achete (
+create table produit_achete (
 	id integer PRIMARY KEY,
 	produit varchar(40) references produit(titre) NOT NULL,
 	proprietaire varchar(12) references client NOT NULL
 );
 
-create table if not exists installe_sur(
+create sequence seq_produit_achete start 1;
+
+create table installe_sur(
 	produit integer references produit_achete(id),
 	terminal varchar(20) references terminal(numero_serie),
 	PRIMARY KEY (produit, terminal)
@@ -137,7 +163,7 @@ create table application_disponible_pour (
 );
 */
 
-create table if not exists produit_disponible_pour (
+create table produit_disponible_pour (
 	produit varchar (40) references produit(titre),
 	systeme integer references systeme_exploitation(id),
 	PRIMARY KEY (produit, systeme)
