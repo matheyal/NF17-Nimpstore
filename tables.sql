@@ -42,7 +42,7 @@ create sequence seq_carte_prepayee start 1;
 
 create table carte_bancaire (
 	id integer PRIMARY KEY,
-	numero_carte integer NOT NULL,
+	numero_carte varchar(16) NOT NULL,
 	date_fin_validité date NOT NULL,
 	cryptogramme integer NOT NULL,
 	UNIQUE (numero_carte, date_fin_validité, cryptogramme),
@@ -66,26 +66,32 @@ create table ressource (
 	editeur integer references editeur(id) NOT NULL
 );
 */
+
+-- ajout d'un attribut prix
 create table produit (
 	titre varchar (40) PRIMARY KEY,
 	description varchar(300),
 	ressource_pour varchar(40) references produit(titre),
-	editeur integer references editeur(id) NOT NULL
+	editeur integer references editeur(id) NOT NULL,
+	prix real NOT NULL,
+	CHECK (prix > 0)
 );
 
 create view v_application as
-	select titre from produit where ressource_pour IS NULL;
+	select * from produit where ressource_pour IS NULL;
 
 create view v_ressource as 
-	select titre from produit where ressource_pour IS NOT NULL;
+	select * from produit where ressource_pour IS NOT NULL;
 
 
 create table achat (
 	id integer PRIMARY KEY,
-	duree int NOT NULL,
+	-- duree int NOT NULL,
 	acheteur varchar(12) references client(login) NOT NULL,
-	destinataire varchar(12) references client(login) NOT NULL,
-	produit varchar(40) references produit(titre)
+	destinataire varchar(12) references client(login) NOT NULL, --destinataire = acheteur si achat pour soi-même
+	produit varchar(40) references produit(titre) NOT NULL,
+	date date NOT NULL DEFAULT CURRENT_DATE,
+	UNIQUE (destinataire, produit) -- on ne peut pas posséder 2 fois la même appli
 );
 
 create sequence seq_achat start 1;
@@ -100,11 +106,10 @@ create table avis (
 );
 
 create table abonnement (
-	app varchar(40) references produit(titre),
-	achat integer references achat(id),
+	--app varchar(40) references produit(titre), --> inutile car déjà présent dans la table achat
+	achat integer references achat(id) PRIMARY KEY,
 	automatique integer,
 	nb_mois integer,
-	PRIMARY KEY (app, achat),
 	CHECK (automatique between 0 and 1),
 	CHECK (nb_mois > 0)
 );
