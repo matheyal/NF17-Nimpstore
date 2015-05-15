@@ -53,20 +53,21 @@ else
       </form>
       <ul class="nav navbar-nav navbar-right">
         <?php
-        echo (is_null($login))? '<button type="button" class="btn btn-default navbar-btn">S\'inscrire</button>
+        echo (is_null($login))? '<button type="button" class="btn btn-default navbar-btn"
+                                        onclick="self.location.href=\'inscription.php\'">S\'inscrire</button>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Connection<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
               <form method="post" action="connection.php">
             <li><input type="text" name="login" value="login"></li>
             <li><input type="password" name="pass" value="password"></li>
-            <li><input type="submit" name="submitLog" value="Connection"></li>
+            <li><input type="submit" name="submitLog" value="Connection" ></li>
                   </form>
           </ul>
         </li>
         ' //DEFINIR ACTION ONCLICK pour le bouton s'inscrire
             // on affiche soit le bouton s'inscrire + connection, soit les options profil selon si l'utilisateur est connecté ou pas
-        :
+        : //Sinon
         '<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mettre login ici <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
