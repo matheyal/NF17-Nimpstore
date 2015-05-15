@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <html><body> <form Method='GET' action='achat.php'> <input value='Achat' type='submit'></form>
 
 <?php
