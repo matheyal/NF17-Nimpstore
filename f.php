@@ -46,7 +46,4 @@ function fSignIn($login,$nom,$prenom,$mdp,$idConnex){
    return 0; //Tout s'est bien passé
     
 }
-
-
-
 ?>

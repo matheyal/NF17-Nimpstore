@@ -45,7 +45,7 @@ else
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <form class="navbar-form navbar-left" role="search" action="result.php">
+      <form method="GET" class="navbar-form navbar-left" role="search" action="result.php">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" name="recherche">   <!-- RECHERCHE -->
         </div>
@@ -76,7 +76,7 @@ else
             <li><a href="#">Mes Terminaux</a></li>
             <li><a href="#">Faire un cadeau</a></li>
             <li class="divider"></li>
-            <li><a href="#">Déconnection</a></li>
+            <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
           </ul>
         </li>'
             ?>
@@ -92,7 +92,7 @@ else
 <?php // Personalisation de la page index si l'utilisateur est loggé
 echo("<h1 align='center'> Bienvenue sur le NimpStore $login ! </h1>");
 ?>
-<p> Vous trouverez toute sorte d'application utile au quotidient ici !<p>
+<p align='center'> Vous trouverez toute sorte d'application utile au quotidient ici !<p>
 <div name='presentation'>
 <p><font color='red'> Faire le défilé d'app</font></p>
 </div>
