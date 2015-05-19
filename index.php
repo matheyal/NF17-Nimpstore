@@ -59,8 +59,10 @@ else
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Connection<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
               <form method="post" action="connection.php">
-            <li><input type="text" name="login" value="login"></li>
-            <li><input type="password" name="pass" value="password"></li>
+            <label for="inputLogin" class="sr-only">Login</label> <!-- permet d ecrire login sans mettre de valeur par defaut -->
+            <li><input type="text" name="login" placeholder="Login" REQUIRED AUTOFOCUS></li> <!-- Empeche les champs vides + autofocus -->
+            <label for="inputPassword" class="sr-only">Password</label>
+            <li><input type="password" name="pass" placeholder="Password" REQUIRED></li>
             <li><input type="submit" name="submitLog" value="Connection" ></li>
                   </form>
           </ul>
