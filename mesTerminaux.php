@@ -32,6 +32,25 @@ echo "<p>Vous n'avez pas encore renseigné d'informations concernant vos apparei
 }
 ?>
 
+<h1>Ajouter un terminal</h1>
+<p>Remplissez le formulaire ci-dessous pour ajouter un nouveau terminal. Vous pourrez ainsi télécharger et installer vos applications favorites sur celui-ci !</p>
+<form method="post" action="mesTerminaux.php">
+    <input type="text" name="num_serie" placeholder="N° Serie">
+    <select name="modele">
+    <?php //options
+        $querystring = "SELECT designation FROM modele"; //Query pour prendre les noms des éditeurs
+        $query = pg_query($idConnex,$querystring);
+        $res = pg_fetch_array($query) OR DIE ("BDD buggée !");
+
+        while(!is_null($res['designation'])) { //Boucle for pour implémenter le bon nombre de choix
+        $nom = $res['designation'];
+        echo("<option> $nom ");
+            $res = pg_fetch_array($query);
+            }?>
+     </select>
+    <input type="submit" value="Ajouter" name="ajout">
+</form>
+
     
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script src="js/jquery.localscroll.js"></script>
