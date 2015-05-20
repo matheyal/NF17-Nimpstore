@@ -7,10 +7,10 @@ else
 <html>
 <body>
 <form Method='POST' action='redirectInscript.php'> <p>
-        Nom : <input type='text' name='nom'> <br/>
-        Prenom : <input type='text' name='prenom'> <br/>
-        Login : <input type='text' name='login'> <br/>
-        Mot de Passe : <input type='password' name='pass'> <br/>
+        Nom : <input type='text' name='nom' REQUIRED AUTOFOCUS> <br/>
+        Prenom : <input type='text' name='prenom' REQUIRED> <br/>
+        Login : <input type='text' name='login' REQUIRED> <br/>
+        Mot de Passe : <input type='password' name='pass' REQUIRED> <br/>
         <input value='Confirmer'type='submit'>
     </p></form>
 

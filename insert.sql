@@ -90,4 +90,4 @@ insert into terminal values ('IP876IDHD', 1, 'pwachals');
 insert into terminal values ('JKHD9876SLLS', 2, 'kcarpent');
 
 -- Installés sur
-insert into installe_sur values ()
+insert into installe_sur values ();
