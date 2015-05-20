@@ -23,13 +23,13 @@ function fLogin($login, $mdp,$idConnex){
 
 function fSignIn($login,$nom,$prenom,$mdp,$idConnex){
     try {$queryString="SELECT * FROM client WHERE '$login' = client.login";
-    $query=pg_query($idConnex,$queryString) or die('Erreur SQL </br>');
+    $query=pg_query($idConnex,$queryString);
     $res=pg_fetch_array($query);
     if ($res['login'])
         throw new Exception('Echec de l\'inscription : login déjà utilisé');
     
     $queryString="SELECT * FROM client c WHERE c.nom='$nom' AND c.prenom='$prenom'";
-    $query=pg_query($idConnex,$queryString) or die('Erreur SQL </br>');
+    $query=pg_query($idConnex,$queryString);
     $res=pg_fetch_array($query);
     if ($res['login'])
         throw new Exception('Echec de l\'inscription : utilisateur déjà enregistré');
