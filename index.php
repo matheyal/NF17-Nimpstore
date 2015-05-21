@@ -24,7 +24,7 @@ else
    <title>NimpStore</title>
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 </head>
 <body >
     
