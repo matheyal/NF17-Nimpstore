@@ -13,9 +13,7 @@ if (isset($_SESSION['login']))
 include("idConnex.php");
 include("navbar.php");
 
-$appName = $_POST['nom'];
-
-
+$appName = $_GET['appName'];
 
 try {
     $querystring = "SELECT titre,nom,contact,url,description FROM v_application a,editeur e WHERE a.editeur=e.id AND a.titre='$appName'";
@@ -51,18 +49,31 @@ catch (Exception $e) {
 ?>
 <?php
 echo("
-<form Method='POST' action='banque.php'>
+<form Method='POST' action='banque.php' onsubmit='fCheckForm()' >
 <p>Choix du mode de paiement :</p>
 <p>
 <select id='Liste' onChange='Lien()'>
     <option value='0'><em>---Choix----</em>
-    <option value='CB.php?appName=$appName'>Carte Bancaire
+    <option value='CB.php?appName=$appName' selected='selected'>Carte Bancaire
     <option value='CP.php?appName=$appName'>Carte Prépayée
 </select>
-
+</p>
 ");
-    ?>
-    <input type='submit' value='BANQUE !#LaurenceBoccolini#LMF'></form>
+?>
+
+Numéro de Carte : <input type='text' name='num'><br/>
+Cryptogramme : <input type='text' name='crpt'><br/>
+
+<br/>
+<input type='checkbox' id='friend'> Pour un ami ? <br/>
+Son Login : <input type='text' id='loginFriend' name='loginFriend'>
+<br/>
+<?php
+if (isset($_GET['err']))
+    echo("<p><font color='red'>Veuillez rentrer un login si vous voulez offrir cette app !</font></p>");
+?>
+<br/>
+        <input type='submit' value='BANQUE !#LaurenceBoccolini#LMF'></form>
 
 <script src="js/ourFunction.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>

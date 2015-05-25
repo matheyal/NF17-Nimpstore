@@ -38,7 +38,7 @@ if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
                 </ul>
                 </p>
                 <p>$description</p>
-                <form Method='GET' action='achat.php'> <input value='Achat' type='submit'></form></div>
+                <form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>
                 ");
 
         }
@@ -77,7 +77,7 @@ else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
-    if (!is_null($res)) {
+    if (!is_null($res['titre'])) {
 
         echo("
             <div align='center'>

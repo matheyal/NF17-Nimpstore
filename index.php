@@ -25,10 +25,7 @@ else
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="css/css.css">
->>>>>>> f99c6e3640e0cb51ac160aba809fdd1fd2062cb4
 </head>
 <body >
     
