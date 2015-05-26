@@ -51,7 +51,6 @@ catch (Exception $e) {
 ?>
 <?php
 echo("
-<form Method='POST' action='banque.php'>
 <p>Choix du mode de paiement :</p>
 <p>
 <select id='Liste' onChange='Lien()'>
@@ -62,7 +61,6 @@ echo("
 
 ");
     ?>
-    <input type='submit' value='BANQUE !#LaurenceBoccolini#LMF'></form>
 
 <script src="js/ourFunction.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>

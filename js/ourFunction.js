@@ -42,3 +42,11 @@ var isChecked = document.getElementById('friend').checked;
     }
 
 }
+
+function fDisabInput() {
+
+    var isChecked = document.getElementById('friend').checked;
+    var textInput = document.getElementById('loginFriend');
+        textInput.disabled = !isChecked;
+
+}

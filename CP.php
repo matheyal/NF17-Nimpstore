@@ -53,7 +53,6 @@ echo("
 <p>Choix du mode de paiement :</p>
 <p>
 <select id='Liste' onChange='Lien()'>
-    <option value='0'><em>---Choix----</em>
     <option value='CB.php?appName=$appName'>Carte Bancaire
     <option value='CP.php?appName=$appName' selected='selected'>Carte Prépayée
 </select>
@@ -61,17 +60,43 @@ echo("
 ");
 ?>
 
-Numéro de Carte : <input type='text' name='numprep'><br/>
+Numéro de Carte : <input type='text' name='num' REQUIRED><br/>
 
+Date de Fin de Validité :  <!-- Double Combobox pour date de validité -->
+
+<!-- Combobox mois -->
+
+<select name='mois' id='mois' REQUIRED>
+    <option value='0' selected='selected' disabled="disabled">--
+        <?php
+        for ($i = 1;$i <13; $i++)
+            echo("<option value='$i'>$i");
+        ?>
+</select>
+
+<!-- Combobox année -->
+
+<select name='annee' id='annee' REQUIRED>
+    <option value='0' selected='selected' disabled="disabled">--
+        <?php
+        $currentYear = 2015;
+        for ($i = $currentYear;$i < ($currentYear + 5); $i++)
+            echo("<option value='$i'>$i");
+        ?>
+</select>
+
+<!-- Fin Double Combobox -->
+<br/><br/>
+<?php echo("<input type='hidden' name='appName' value='$appName'>"); ?>
+<input type='checkbox' id='friend' onclick='fDisabInput()'> Pour un ami ? <br/>
+Son Login : <input type='text' id='loginFriend' name='loginFriend' disabled='disabled'>
 <br/>
-<input type='checkbox' id='friend'> Pour un ami ? <br/>
-Son Login : <input type='text' id='loginFriend' name='loginFriend'><br/>
 <?php
 if (isset($_GET['err']))
 echo("<p><font color='red'>Veuillez rentrer un login si vous voulez offrir cette app !</font></p>");
 ?>
 <br/>
-<input type='submit' value='BANQUE !#LaurenceBoccolini#LMF'></form>
+<input type='submit' value='Finalisez votre achat'></form>
 
 <script src="js/ourFunction.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>

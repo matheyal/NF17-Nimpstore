@@ -53,7 +53,6 @@ echo("
 <p>Choix du mode de paiement :</p>
 <p>
 <select id='Liste' onChange='Lien()'>
-    <option value='0'><em>---Choix----</em>
     <option value='CB.php?appName=$appName' selected='selected'>Carte Bancaire
     <option value='CP.php?appName=$appName'>Carte Prépayée
 </select>
@@ -61,19 +60,47 @@ echo("
 ");
 ?>
 
-Numéro de Carte : <input type='text' name='num'><br/>
-Cryptogramme : <input type='text' name='crpt'><br/>
+Numéro de Carte : <input type='text' name='num' autofocus='autofocus' REQUIRED><br/>
+
+Date de Fin de Validité :  <!-- Double Combobox pour date de validité -->
+
+<!-- Combobox mois -->
+
+<select name='mois' id='mois' REQUIRED>
+    <option value='0' selected='selected' disabled="disabled">--
+        <?php
+        for ($i = 1;$i <13; $i++)
+            echo("<option value='$i'>$i");
+        ?>
+</select>
+
+<!-- Combobox année -->
+
+<select name='annee' id='annee' REQUIRED>
+    <option value='0' selected='selected' disabled="disabled">--
+        <?php
+        $currentYear = 2015;
+        for ($i = $currentYear;$i < ($currentYear + 5); $i++)
+            echo("<option value='$i'>$i");
+        ?>
+</select>
+
+<!-- Fin Double Combobox -->
+<br/>
+
+Cryptogramme : <input type='text' name='crpt' REQUIRED><br/>
 
 <br/>
-<input type='checkbox' id='friend'> Pour un ami ? <br/>
-Son Login : <input type='text' id='loginFriend' name='loginFriend'>
+<input type='checkbox' id='friend' onclick='fDisabInput()'> Pour un ami ? <br/>
+Son Login : <input type='text' id='loginFriend' name='loginFriend' disabled='disabled'>
 <br/>
 <?php
 if (isset($_GET['err']))
     echo("<p><font color='red'>Veuillez rentrer un login si vous voulez offrir cette app !</font></p>");
 ?>
 <br/>
-        <input type='submit' value='BANQUE !#LaurenceBoccolini#LMF'></form>
+  <?php      echo("<input type='hidden' value='$appName' name='appName'>"); ?>
+        <input type='submit' value='Finalisez votre achat'></form>
 
 <script src="js/ourFunction.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
