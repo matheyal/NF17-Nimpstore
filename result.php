@@ -53,6 +53,33 @@ if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
                 $_SESSION['alreadyBought'] = 0;
                 echo("<form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
             }
+
+        /* Insertion de la partie avis */
+
+            // Interogation de la BDD
+
+            $queryString = "
+SELECT commentaire AS com,note AS mark, auteur ,app AS appli, moy
+FROM avis a ,
+  (SELECT AVG(note) AS moy,app AS appl
+  FROM avis
+  WHERE app='$appName'
+  GROUP BY(appl)) AS R2
+WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
+            $query = pg_query($idConnex, $queryString);
+            $res = pg_fetch_array($query);
+
+
+
+            echo("<div class='avisContainer'>
+                <div class='note' align='center'> Note Moyenne de l'application : ".$res['moy']." / 5 </div><br/><br/>
+            ");
+
+            while (!is_null($res['mark'])) {
+                echo("<p align='center'>--------------</p><br/><div class='singleAvisDisplay' align='center'><p>Note délivrée par ".$res['auteur']." : ".$res['mark']."</p><p>Commentaire : ".$res['com']."</p></div> ");
+                $res = pg_fetch_array($query);
+            }
+
         }
         else throw new Exception("Application Introuvable : Veuillez passer par la recherche avancée !");
     }
