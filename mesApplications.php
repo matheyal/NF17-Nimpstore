@@ -16,19 +16,21 @@ $login=$_SESSION['login'];
 <h1>Vos applications <?php echo $login; ?></h1>
 
 <?php 
-$querystring="SELECT * FROM (client c INNER JOIN produit_achete pa ON c.login=pa.proprietaire)R1
-                            INNER JOIN v_application va ON R1.produit=va.titre
-                            WHERE R1.login='$login'"; //Requete du turfu by LeLu #checkdisout
+$querystring="SELECT * FROM ((client c INNER JOIN produit_achete pa ON c.login=pa.proprietaire)R1
+                            INNER JOIN v_application va ON R1.produit=va.titre) R2
+                            INNER JOIN editeur e ON e.id = R2.editeur
+                            WHERE R2.login='$login'"; //Requete du turfu by LeLu #checkdisout
 $query=pg_query($querystring);
 $res=pg_fetch_array($query);
 
 if (is_null($res['titre'])){
     echo "<p> Vous ne possédez pas encore d'application! Trouvez dès maintenant celle de vos rêves grâce à l'outil recherche !</p>";
 }else{
-    while($res){
+    while(!is_null($res['titre'])){
         echo "<p>Nom : ".$res['titre']."</p>";
-        echo "<p>Editeur : ".$res['editeur']."</p>";
+        echo "<p>Editeur : ".$res['nom']."</p>";
         echo "</br>";
+        $res = pg_fetch_array($query);
     }
 }
 ?>
