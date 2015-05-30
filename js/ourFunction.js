@@ -29,7 +29,7 @@ function Lien() {
 
 }
 
-function fCheckForm() {
+function fCheckForm(selfLogin) {
 
 var isChecked = document.getElementById('friend').checked;
     if (isChecked) {
@@ -39,8 +39,12 @@ var isChecked = document.getElementById('friend').checked;
             alert("");
             return false;
         }
+        if (name.value == selfLogin) {
+            parent.location.href = document.location + "&err=2";
+            alert("");
+            return false;
+        }
     }
-
 }
 
 function fDisabInput() {

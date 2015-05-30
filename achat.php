@@ -13,7 +13,12 @@ if (isset($_SESSION['login']))
 include("idConnex.php");
 include("navbar.php");
 
-$appName = $_POST['nom'];
+if(isset($_SESSION['applicationRejetee'])) {
+    $appName = $_SESSION['applicationRejetee'];
+    unset($_SESSION['applicationRejetee']);
+}
+else
+    $appName = $_POST['nom'];
 
 
 
@@ -60,6 +65,8 @@ echo("
 </select>
 
 ");
+if(isset($_GET['err']))
+    echo("Votre ami possède déjà l'application !");
     ?>
 
 <script src="js/ourFunction.js"></script>

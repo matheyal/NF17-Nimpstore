@@ -37,10 +37,22 @@ if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
                 <li>$editorSite</li>
                 </ul>
                 </p>
-                <p>$description</p>
-                <form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>
-                ");
+                <p>$description</p>");
 
+            $queryString = "SELECT id FROM produit_achete pa WHERE proprietaire='$login' AND produit='$appName'";
+            $query = pg_query($idConnex, $queryString);
+            $res = pg_fetch_array($query);
+
+            if (!is_null($res['id'])) {
+                echo("Vous possédez cette application ! Vous pouvez l'offrir à un ami !");
+                $_SESSION['alreadyBought'] = 1;
+                echo("<form Method='POST' action='achat.php'> <input value='Achat pour un ami !' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
+
+            }
+            else {
+                $_SESSION['alreadyBought'] = 0;
+                echo("<form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
+            }
         }
         else throw new Exception("Application Introuvable : Veuillez passer par la recherche avancée !");
     }

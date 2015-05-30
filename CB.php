@@ -49,7 +49,7 @@ catch (Exception $e) {
 ?>
 <?php
 echo("
-<form Method='POST' action='banque.php' onsubmit='fCheckForm()' >
+<form Method='POST' action='banque.php' onsubmit='fCheckForm(".json_encode($login).")' >
 <p>Choix du mode de paiement :</p>
 <p>
 <select id='Liste' onChange='Lien()'>
@@ -91,12 +91,26 @@ Date de Fin de Validité :  <!-- Double Combobox pour date de validité -->
 Cryptogramme : <input type='text' name='crpt' REQUIRED><br/>
 
 <br/>
-<input type='checkbox' id='friend' onclick='fDisabInput()'> Pour un ami ? <br/>
-Son Login : <input type='text' id='loginFriend' name='loginFriend' disabled='disabled'>
-<br/>
 <?php
-if (isset($_GET['err']))
-    echo("<p><font color='red'>Veuillez rentrer un login si vous voulez offrir cette app !</font></p>");
+echo("<input type='hidden' name='appName' value='$appName'>");
+if ($_SESSION['alreadyBought'])
+    echo("<input type='checkbox' id='friend' checked='checked' disabled='disabled'> Pour un ami ? <br/>
+    Son Login : <input type='text' id='loginFriend' name='loginFriend' > <br/>
+");
+else
+echo("<input type='checkbox' id='friend' onclick='fDisabInput()'> Pour un ami ? <br/>
+    Son Login : <input type='text' id='loginFriend' name='loginFriend' disabled='disabled'>
+<br/>
+");
+?>
+
+<?php
+if (isset($_GET['err'])) {
+    if ($_GET['err'] == 1)
+        echo("<p><font color='red'>Veuillez rentrer un login si vous voulez offrir cette app !</font></p>");
+    if ($_GET['err'] == 2)
+        echo("<p><font color='red'>Vous voulez l'offrir à un ami, pas à vous même !</font></p>");
+}
 ?>
 <br/>
   <?php      echo("<input type='hidden' value='$appName' name='appName'>"); ?>

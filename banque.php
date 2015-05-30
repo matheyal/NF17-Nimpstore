@@ -7,6 +7,19 @@ $login = $_SESSION['login'];
 $appName = $_POST['appName'];
 $achat = false;
 
+    /* Dans le cas où l'on demande à offrir à un ami, on vérifie que l'ami en question n'a pas déjà l'application */
+
+if (isset($_POST['loginFriend'])) {
+    $loginFriend = $_POST['loginFriend'];
+    $queryString = "SELECT id FROM produit_achete pa WHERE proprietaire='$loginFriend' AND produit='$appName'";
+    $query = pg_query($idConnex, $queryString);
+    $res = pg_fetch_array($query);
+
+    if (!is_null($res['id'])) {
+        $_SESSION['applicationRejetee'] = $appName;
+        header("Location: achat.php?err=1");
+    }
+}
     /* On Check la façon de payer de la personne */
 
 $num = $_POST['num'];
@@ -91,10 +104,14 @@ else {  // Nous sommes dans le cas où il a payé par Carte Prépayée
 
 
 if ($achat) {
-    $queryString = "INSERT INTO produit_achete VALUES (seq_achat.NEXTVAL,'$appName','$login') ";
-    $query = pg_query($idConnex, $queryString);
-}
 
+    if (isset($_POST['loginFriend']))
+        $login = $_POST['loginFriend'];
+    $queryString = "INSERT INTO produit_achete VALUES (nextval('seq_produit_achete'),'$appName','$login') ";
+    $query = pg_query($idConnex, $queryString);
+
+    header("refresh : 2; mesApplications.php");
+}
 ?>
 
 </html>
