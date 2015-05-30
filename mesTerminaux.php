@@ -17,7 +17,7 @@ if (isset($_POST['ajout'])){
     
     $querystring="SELECT m.id as mid,os.id as osid FROM modele m INNER JOIN systeme_exploitation os ON m.os=os.id
                     WHERE m.designation='$modele'";
-    $query=pg_query($querystring);
+    $query=pg_query($idConnex,$querystring);
     $res=pg_fetch_array($query);
     $mid=$res['mid'];
     
@@ -34,17 +34,19 @@ if (isset($_POST['ajout'])){
     <title>NimpStore - Mes Applications</title>
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <?php include("navbar.php");
       include("idConnex.php");
+      require("class/class.php");
 ?>
 
 <h1>Vos Terminaux <?php echo $login; ?></h1>
 
 <?php 
-$querystring="SELECT R1.numero_serie,m.designation FROM (client c INNER JOIN terminal t ON c.login=t.proprietaire)R1
+$querystring="SELECT R1.numero_serie,m.designation,m.os FROM (client c INNER JOIN terminal t ON c.login=t.proprietaire)R1
                 INNER JOIN modele m ON R1.modele=m.id
                 WHERE R1.login='$login'";//Requete du turfu by LeLu #checkdisout
 $query=pg_query($idConnex,$querystring);
@@ -57,6 +59,8 @@ echo "<p>Vous n'avez pas encore renseigné d'informations concernant vos apparei
         echo "<p>Modèle : ".$res['designation']."</p>";
         echo "<p>N° Série : ".$res['numero_serie']."</p>";
         echo "</br>";
+        /*$ter = new terminal($res['designation'],$res['os'],$res['numero_serie']); 
+        $ter->afficher();*/
         $res=pg_fetch_array($query);
     }
 }

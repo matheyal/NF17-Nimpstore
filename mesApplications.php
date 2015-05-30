@@ -6,11 +6,13 @@ $login=$_SESSION['login'];
     <title>NimpStore - Mes Applications</title>
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <?php include("navbar.php");
       include("idConnex.php");
+    require("class/class.php");
 ?>
 
 <h1>Vos applications <?php echo $login; ?></h1>
@@ -27,9 +29,8 @@ if (is_null($res['titre'])){
     echo "<p> Vous ne possédez pas encore d'application! Trouvez dès maintenant celle de vos rêves grâce à l'outil recherche !</p>";
 }else{
     while(!is_null($res['titre'])){
-        echo "<p>Nom : ".$res['titre']."</p>";
-        echo "<p>Editeur : ".$res['nom']."</p>";
-        echo "</br>";
+        $app = new application($res['titre'],$res['nom'],$res['prix']);
+        $app->afficher();
         $res = pg_fetch_array($query);
     }
 }

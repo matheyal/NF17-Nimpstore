@@ -37,7 +37,7 @@ require 'class/class.php';
 ?>
     <p align='center'> Vous trouverez toute sorte d'application utile au quotidient ici !</p>
     
-<div name='presentation'>
+<div name='presentation' class="container">
 <p><font color='red'> Brand new Apps' !</font></p>
 <?php // défilé des 5 dernières applications ajoutée => serait plus pertinent de mettre les plus téléchargées quand dispo
 include("idConnex.php");
@@ -48,10 +48,7 @@ $query=pg_query($querystring);
 $i=0;
 for ($i=0;$i<5;$i++){
     $res=pg_fetch_array($query);
- if (!is_null($res)){
-  /*      echo "<p>Nom : ".$res['titre']."</p>";
-        echo "<p>Editeur : ".,$res['nom']."</p>";
-        echo "</br>";*/
+ if (!is_null($res)){  //création d'un objet app puis affichage
         $app = new application($res['titre'],$res['nom'],$res['prix']);
         $app->afficher();
  }

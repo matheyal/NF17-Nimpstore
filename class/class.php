@@ -10,7 +10,7 @@ class application {
     
     public function afficher(){ //genere le code html permettant d'afficher
      echo '<div class="appCard">
-            <a href="#" class="appLink">
+            <a href="application.php?app='.self::getTitre().'" class="appLink">
                 <div class="cover">
                     <img alt="cover" src="img/appDefault.png" class="app-cover"/>
                 </div>     
@@ -38,5 +38,33 @@ class application {
     
 }
     
+
+class terminal {
+    private $_modele;
+    private $_os;
+    private $_numSerie;
+    
+    public function getModele(){return $this->_modele;}
+    public function getOs(){return $this->_os;}
+    public function getNumSerie(){return $this->_numSerie;}
+    
+    public function afficher(){ //genere le code html permettant d'afficher
+     echo '     <div class="details">
+                    <p class="title">'.self::getModele().'</p>
+                    <p class="subtitle">'.self::getOs().'</p>
+                    <p class="price">'.self::getNumSerie().'€</p>  
+                </div>
+            </a>
+     ';   // Faudrait refaire un affichage, pas le temps pour l'instant
+    }
+    //public function getNbTelechargements(); futur develeppoment #stats
+    
+    public function __construct($modele,$os,$numSerie){
+        $this->_modele=$modele;
+        $this->_os=$os;
+        $this->_numSerie=$numSerie;
+    } 
+    
+}
     
 ?>

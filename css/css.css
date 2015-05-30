@@ -17,6 +17,7 @@
     line-height: 16px;
     padding: 5%;
     overflow: hidden;
+    background-color: white;
 }
 .title{
     color: black;
