@@ -1,12 +1,18 @@
 <?php session_start();
-$login=$_SESSION['login'];
+if (isset($_SESSION['login']))
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
 ?>
 <html>
 <head>
     <title>NimpStore - Profil</title>
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <?php include("navbar.php"); ?>

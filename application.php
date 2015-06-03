@@ -1,10 +1,12 @@
-<?php //Récupération des attributs de redirection afin de customiser la page
-
-session_start(); //Lancement de la session php
-if (isset($_SESSION["login"]))
-    $login=$_SESSION["login"];
-else $login=NULL;
+<?php session_start();
+if (isset($_SESSION['login']))
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
 ?>
+
 <html>
 <head>
    <title>NimpStore</title>

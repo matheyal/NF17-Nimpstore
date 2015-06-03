@@ -1,3 +1,12 @@
+<?php session_start();
+if (isset($_SESSION['login']))
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
+?>
+
 <html>
 <head>
     <meta charset='utf-8'>

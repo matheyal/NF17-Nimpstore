@@ -2,14 +2,10 @@
 
 session_start(); //Lancement de la session php
 
-if (isset($_GET['logged'])) { //On vérifie qu'un user est loggé ou pas, si oui, on récupère la valeur du login
-    if (!isset($_SESSION['login'])) die("Tu m'as pris pour un JAMBON ?!?!?"); //Pour les petits malins qui veulent hacker
-    $logged = $_GET['logged'];
+if (isset($_SESSION['login']))
     $login = $_SESSION['login'];
-}
 else {
     session_destroy();
-    $logged = NULL;
     $login = NULL;
 }
 

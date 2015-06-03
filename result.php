@@ -1,4 +1,11 @@
-
+<?php session_start();
+if isset($_SESSION['login'])
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
+?>
 <!-- ORDONNER AVEC ORDER BY POUR REGLER LES BUGS OU UTILISER -->
 
 <html>
@@ -8,9 +15,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 </head>
 <body>
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login = $_SESSION['login'];
+<?php
 include("idConnex.php");
 include("navbar.php");
 
