@@ -1,3 +1,5 @@
+
+
     <!-- NAVBAR -->
    <?php echo '<nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -9,7 +11,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Nimpstore</a>
+      <a class="navbar-brand" href="index.php">Nimpstore</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

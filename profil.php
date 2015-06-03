@@ -23,6 +23,49 @@ echo "<p> Nom : ".$res['nom']."</p>";
 echo "<p> Prenom : ".$res['prenom']."</p>";
 
 
+$queryS="SELECT a.produit as produit, v.titre as titre, a.date as date, v.description as desc, v.editeur as edi 
+	From achat a, v_application v 
+	WHERE a.acheteur='$login' AND a.produit=v.titre AND a.acheteur = a.destinataire";
+$query=pg_query($idConnex,$queryS);
+
+while($res=pg_fetch_array($query)){
+echo "Historique des achats";
+echo "<p> Produit acheté :".$res['titre']."</p>";
+echo "<p> Achat fait le : ".$res['date']."</p>";
+echo "<p>  Description: ".$res['desc']."</p>";
+echo "<p> Editeur : ".$res['edi']."</p>";
+}
+
+
+$querySS="SELECT c.nom as nom, c.prenom as prenom, a.destinataire as dest, a.produit as produit, a.date as date, v.titre as titre, v.description as desc, v.editeur as edi 
+	From achat a, v_application v, client c
+	WHERE a.acheteur='$login' AND a.produit=v.titre AND a.acheteur != a.destinataire AND a.destinataire = c.login";
+$query=pg_query($idConnex,$querySS);
+
+while($res=pg_fetch_array($query)){
+echo "Historique des cadeaux";
+echo "<p> Achat pour : ".$res['prenom'] . $res['nom']."</p>";
+echo "<p> Cadeau fait le : ".$res['date']."</p>";
+echo "<p> Produit acheté :".$res['titre']."</p>";
+echo "<p>  Description: ".$res['desc']."</p>";
+echo "<p> Editeur : ".$res['edi']."</p>";
+
+}
+
+$querySS="SELECT c.nom as nom, c.prenom as prenom, a.destinataire as dest, a.produit as produit, a.date as date, v.titre as titre, v.description as desc, v.editeur as edi 
+	From achat a, v_application v, client c
+	WHERE a.destinataire='$login' AND a.produit=v.titre AND a.acheteur != a.destinataire AND a.acheteur = c.login";
+$query=pg_query($idConnex,$querySS);
+
+while($res=pg_fetch_array($query)){
+echo "Historique des cadeaux pris";
+echo "<p> Cadeau de : ".$res['prenom'] . $res['nom']."</p>";
+echo "<p> Cadeau reçu le : ".$res['date']."</p>";
+echo "<p> Produit  :".$res['titre']."</p>";
+echo "<p>  Description: ".$res['desc']."</p>";
+echo "<p> Editeur : ".$res['edi']."</p>";
+
+}
 ?>
     
     
