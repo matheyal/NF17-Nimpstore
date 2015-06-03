@@ -1,5 +1,5 @@
 <?php session_start();
-if isset($_SESSION['login'])
+if (isset($_SESSION['login']))
     $login=$_SESSION['login'];
 else{
     session_destroy();
@@ -13,11 +13,13 @@ else{
 <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <?php
 include("idConnex.php");
 include("navbar.php");
+require("class/class.php");
 
 if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
 
@@ -95,7 +97,7 @@ WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
 }
 else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] == '0'))
 {
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND pr.systeme=$OS";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND pr.systeme=$OS";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -107,8 +109,8 @@ else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] 
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+            $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }
@@ -117,7 +119,7 @@ else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] 
 
 else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
 
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND a.editeur='$editor'";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND a.editeur='$editor'";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -129,8 +131,8 @@ else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+            $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }
@@ -141,7 +143,7 @@ else {
 
 
 
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -153,8 +155,8 @@ else {
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+           $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }
