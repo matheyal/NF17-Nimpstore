@@ -95,6 +95,9 @@ create table achat (
 );
 
 create sequence seq_achat start 1;
+-- Vue permettant de voir les applis achetées et leurs propriétaires	
+create view v_produit_achete as
+	select id, produit, destinataire as propietaire from achat;
 
 create table avis (
 	auteur varchar(12) references client(login),
@@ -149,6 +152,11 @@ create sequence seq_produit_achete start 1;
 
 create table installe_sur(
 	produit integer references produit_achete(id),
+	terminal varchar(20) references terminal(numero_serie),
+	PRIMARY KEY (produit, terminal)
+);
+create table installe_sur2(
+	produit integer references achat(produit),
 	terminal varchar(20) references terminal(numero_serie),
 	PRIMARY KEY (produit, terminal)
 );
