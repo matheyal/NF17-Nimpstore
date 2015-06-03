@@ -16,7 +16,7 @@ else{
 </head>
 <body>
 
-<?php session_start();
+<?php
 include("idConnex.php");
 include("navbar.php");
 

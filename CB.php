@@ -16,7 +16,7 @@ else{
 </head>
 <body>
 
-<?php session_start();
+<?php
 if (isset($_SESSION['login']))
     $login = $_SESSION['login'];
 include("idConnex.php");
