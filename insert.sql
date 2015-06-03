@@ -64,6 +64,7 @@ insert into achat values (nextval('seq_achat'), 'kcarpent', 'matheyal' , 'Bonbon
 insert into achat values (nextval('seq_achat'), 'matheyal', 'crozatst' , 'Facebouc');
 insert into achat values (nextval('seq_achat'), 'crozatst', 'crozatst' , 'Facebouc Messenger');
 insert into achat values (nextval('seq_achat'), 'crozatst', 'crozatst' , 'MAJ 2.0 - Facebouc Messenger');
+insert into achat values (nextval('seq_achat'), 'octavo', 'octavo', 'Facebouc');
 
 -- Avis
 insert into avis values ('mihaliin', 'Bonbons Crush', 5, 'Très bonne appli !');
@@ -73,7 +74,7 @@ insert into abonnement values (3, 0, 3);
 insert into abonnement values (5, 1, 2);
 
 -- Systèmes d'exploitation
-insert into systeme_exploitation values (nextval('seq_systeme_exploitation'), 'Microsoft', '7');
+insert into systeme_exploitation values (nextval('seq_systeme_exploitation'), 'Microsoft', 'Windows 7');
 insert into systeme_exploitation values (nextval('seq_systeme_exploitation'), 'Google', 'lollipop');
 insert into systeme_exploitation values (nextval('seq_systeme_exploitation'), 'Apple', 'ios7');
 insert into systeme_exploitation values (nextval('seq_systeme_exploitation'), 'Cannonical', 'Ubuntu');
