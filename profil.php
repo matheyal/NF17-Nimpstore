@@ -19,8 +19,8 @@ $querystring="SELECT * FROM client c WHERE c.login='$login'";
 $query=pg_query($idConnex,$querystring);
 $res=pg_fetch_array($query);
 
-echo "<p> Nom : ".$res['nom']."</p>";
-echo "<p> Prenom : ".$res['prenom']."</p>";
+echo "<p> <strong>Nom :</strong> ".$res['nom']."</p>";
+echo "<p> <strong>Prenom :</strong> ".$res['prenom']."</p>";
 
 
 $queryS="SELECT a.produit as produit, v.titre as titre, a.date as date, v.description as desc, v.editeur as edi 
