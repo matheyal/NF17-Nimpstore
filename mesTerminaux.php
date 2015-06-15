@@ -1,5 +1,10 @@
 <?php session_start();
-$login=$_SESSION['login'];
+if (isset($_SESSION['login']))
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
 ?>
 
 <?php

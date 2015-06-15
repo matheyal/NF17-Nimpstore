@@ -1,12 +1,18 @@
 <?php session_start();
-$login=$_SESSION['login'];
+if (isset($_SESSION['login']))
+    $login=$_SESSION['login'];
+else{
+    session_destroy();
+    $login=NULL;
+}
 ?>
 <html>
 <head>
     <title>NimpStore - Profil</title>
    <meta charset='utf-8'>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <?php include("navbar.php"); ?>
@@ -19,8 +25,13 @@ $querystring="SELECT * FROM client c WHERE c.login='$login'";
 $query=pg_query($idConnex,$querystring);
 $res=pg_fetch_array($query);
 
+<<<<<<< HEAD
 echo "<p> <strong>Nom :</strong> ".$res['nom']."</p>";
 echo "<p> <strong>Prenom :</strong> ".$res['prenom']."</p>";
+=======
+echo "<p> <b>Nom</b> : ".$res['nom']."</p>";
+echo "<p> Prenom : ".$res['prenom']."</p>";
+>>>>>>> e40d5f95604a7541271228d3855900ca45fada6b
 
 
 $queryS="SELECT a.produit as produit, v.titre as titre, a.date as date, v.description as desc, v.editeur as edi 
