@@ -29,7 +29,7 @@ if (is_null($res['titre'])){
         if(is_null($res['commentaire']) || $res['auteur'] != $login){
             echo("<form method='POST' action='avis.php'>
                 <input type='hidden' value='".$app->getTitre()."' name='appName'>
-                Votre note sur 5 : <input type='text' name='note'> <br/>
+                Votre note sur 5 : <input type='text' name='note' REQUIRED> <br/>
                 Votre commentaire sur l'application : <input type='text' name='com'><br/>
                 <input type='submit' class='comButton' value='Envoyer votre avis'>
                 </form></p>");
