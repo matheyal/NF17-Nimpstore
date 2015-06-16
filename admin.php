@@ -114,6 +114,18 @@ if (isset($_POST['deld_droits_admin'])){
             $res = pg_fetch_array($query);
         }?>
      </select><br/>
+     <p> <h5> Choix OS :</h5>
+
+<?php	$querystring = "SELECT id,version FROM systeme_exploitation";
+		$query = pg_query($idConnex,$querystring);
+		
+
+		while ($res = pg_fetch_array($query)) {
+			echo("<input type=checkbox value='".$res['id']."' name='".$res['id']."''> ".$res['version']."<br/>");
+		}
+
+?>
+</p>
      Prix: <input type='number' name='prix' min='0' value='0' step='0.01' REQUIRED> <br/>
 	<input type='submit' value='Ajouter application'>
 </form>

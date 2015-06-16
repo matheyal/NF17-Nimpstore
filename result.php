@@ -45,21 +45,21 @@ else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] 
 }
 
 else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
-
-    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND a.editeur='$editor'";
-    $query = pg_query($idConnex, $querystring);
-    $res = pg_fetch_all($query);
-
-    if (!is_null($res['titre'])) {
+        $querystring = "SELECT DISTINCT a.titre as titre,e.nom,a.prix FROM v_application a, editeur e WHERE a.editeur = e.id AND a.editeur='$editor'";
+            $query = pg_query($idConnex, $querystring);
+            $res = pg_fetch_array($query);
+        if (!is_null($res['titre'])) {
 
         echo("
             <div align='center'>
             <p> Voici Différentes applications suceptibles de vous interesser !</p>
             <ul>");
 
-        while ($res = pg_fetch_array($query)) {
+        while (!is_null($res['titre'])) {
+            
             $app = new application($res['titre'],$res['nom'],$res['prix']);
             $app->afficher();
+            $res = pg_fetch_array($query);
         }
         echo("</ul></div>");
     }
@@ -68,22 +68,21 @@ else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
 
 else {
 
-
-
-    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e WHERE a.editeur = e.id";
     $query = pg_query($idConnex, $querystring);
-    $res = pg_fetch_all($query);
+    $res = pg_fetch_array($query);
 
-    if (!is_null($res)) {
+    if (!is_null($res['titre'])) {
 
         echo("
             <div align='center'>
             <p> Voici Différentes applications suceptibles de vous interesser !</p>
             <ul>");
 
-        while ($res = pg_fetch_array($query)) {
+        while (!is_null($res['titre'])) {
            $app = new application($res['titre'],$res['nom'],$res['prix']);
             $app->afficher();
+            $res = pg_fetch_array($query);
         }
         echo("</ul></div>");
     }
