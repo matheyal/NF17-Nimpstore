@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php session_start();
 if (isset($_SESSION['login'])) {
     $login=$_SESSION['login'];
@@ -8,8 +7,8 @@ else{
     $login=NULL;
 }
 ?>
-=======
->>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
+
+
 <html>
 <?php include("base.php");?>
 
@@ -47,14 +46,11 @@ if (is_null($res['titre'])){
                 </form></p>");
         }
         else echo("<br/>Vous avez déjà déposé un avis sur cette app !</p>");
-<<<<<<< HEAD
         echo'<form method="GET" action="ressource.php">Allez voir si des ressources sont disponible pour cet app !<input type="submit" value="Voir !"><input type="hidden" value="'.$res['titre'].'" name="appName"></form>';
     $res = pg_fetch_array($query);
-=======
             echo "</div>";
         echo "</div>";
         $res = pg_fetch_array($query);
->>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
     }
 }
 ?>
