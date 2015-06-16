@@ -8,7 +8,7 @@ function fLogin($login, $mdp,$idConnex){
     $query=pg_query($idConnex,$queryString);
     $res=pg_fetch_array($query) or die("ECHEC : erreur SQL </br>");
     
-    if ($res['login']=='admin')
+    if ($res['status']=='admin')
         return 2;
     else if (!is_null($res))
         return 1;

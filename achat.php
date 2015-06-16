@@ -1,24 +1,7 @@
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login=$_SESSION['login'];
-else{
-    session_destroy();
-    $login=NULL;
-}
-?>
-
 <html>
-<head>
-    <meta charset='utf-8'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
+<?php include("base.php");?>
 
 <?php
-include("idConnex.php");
-include("navbar.php");
 
 if(isset($_SESSION['applicationRejetee'])) {
     $appName = $_SESSION['applicationRejetee'];
@@ -70,10 +53,11 @@ echo("
     <option value='CB.php?appName=$appName'>Carte Bancaire
     <option value='CP.php?appName=$appName'>Carte Prépayée
 </select>
+</p>
 
 ");
 if(isset($_GET['err']))
-    echo("Votre ami possède déjà l'application !");
+    echo("<p>Votre ami possède déjà l'application !</p>");
     ?>
 
 <script src="js/ourFunction.js"></script>

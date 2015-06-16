@@ -9,9 +9,19 @@ $querystring="SELECT * FROM client c WHERE c.login='$login'";
 $query=pg_query($idConnex,$querystring);
 $res=pg_fetch_array($query);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+echo "<p> <strong>Nom :</strong> ".$res['nom']."</p>";
+echo "<p> <strong>Prenom :</strong> ".$res['prenom']."</p>";
+=======
+echo "<p> <b>Nom</b> : ".$res['nom']."</p>";
+echo "<p> Prenom : ".$res['prenom']."</p>";
+>>>>>>> e40d5f95604a7541271228d3855900ca45fada6b
+=======
 echo "<p> <strong>Nom :</strong> ".$res['nom']."</p>";
 echo "<p> <strong>Prenom :</strong> ".$res['prenom']."</p>";
 echo "<p> <strong>Login : </strong> ".$login."</p>";
+>>>>>>> d6cd26d9e369b2c6f46a350c51d222522ec0565c
 
 
 $queryS="SELECT a.produit as produit, v.titre as titre, a.date as date, v.description as desc, v.editeur as edi 

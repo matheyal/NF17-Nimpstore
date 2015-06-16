@@ -1,25 +1,8 @@
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login=$_SESSION['login'];
-else{
-    session_destroy();
-    $login=NULL;
-}
-?>
 <!-- ORDONNER AVEC ORDER BY POUR REGLER LES BUGS OU UTILISER -->
 
 <html>
-<head>
-<meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
+<?php inlude("base.php"); ?>
 <?php
-include("idConnex.php");
-include("navbar.php");
-require("class/class.php");
 
 if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
 
@@ -30,63 +13,7 @@ if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
         $res = pg_fetch_array($query);
 
         if (!is_null($res['nom'])) {
-                $editorName = $res['nom'];
-                $editorContact = $res['contact'];
-                $editorSite = $res['url'];
-                $description = $res['description'];
-
-                echo("
-                <div align='center'>
-                <h2> $appName </h2>
-                <p> Nom de l'éditeur de l'application : $editorName
-                <ul>
-                <li>$editorContact</li>
-                <li>$editorSite</li>
-                </ul>
-                </p>
-                <p>$description</p>");
-
-            $queryString = "SELECT id FROM produit_achete pa WHERE proprietaire='$login' AND produit='$appName'";
-            $query = pg_query($idConnex, $queryString);
-            $res = pg_fetch_array($query);
-
-            if (!is_null($res['id'])) {
-                echo("Vous possédez cette application ! Vous pouvez l'offrir à un ami !");
-                $_SESSION['alreadyBought'] = 1;
-                echo("<form Method='POST' action='achat.php'> <input value='Achat pour un ami !' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
-
-            }
-            else {
-                $_SESSION['alreadyBought'] = 0;
-                echo("<form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
-            }
-
-        /* Insertion de la partie avis */
-
-            // Interogation de la BDD
-
-            $queryString = "
-SELECT commentaire AS com,note AS mark, auteur ,app AS appli, moy
-FROM avis a ,
-  (SELECT AVG(note) AS moy,app AS appl
-  FROM avis
-  WHERE app='$appName'
-  GROUP BY(appl)) AS R2
-WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
-            $query = pg_query($idConnex, $queryString);
-            $res = pg_fetch_array($query);
-
-
-
-            echo("<div class='avisContainer'>
-                <div class='note' align='center'> Note Moyenne de l'application : ".$res['moy']." / 5 </div><br/><br/>
-            ");
-
-            while (!is_null($res['mark'])) {
-                echo("<p align='center'>--------------</p><br/><div class='singleAvisDisplay' align='center'><p>Note délivrée par ".$res['auteur']." : ".$res['mark']."</p><p>Commentaire : ".$res['com']."</p></div> ");
-                $res = pg_fetch_array($query);
-            }
-
+                header("Location: application.php?app=$appName");
         }
         else throw new Exception("Application Introuvable : Veuillez passer par la recherche avancée !");
     }
