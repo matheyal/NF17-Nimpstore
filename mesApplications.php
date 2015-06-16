@@ -22,6 +22,7 @@ if (is_null($res['titre'])){
       echo("<p>");
         $app = new application($res['titre'],$res['editname'],$res['prix']);
         $app->afficher();
+        
         if(is_null($res['commentaire']) || $res['auteur'] != $login) 
           echo("<form method='POST' action='avis.php'>
                 <input type='hidden' value='".$app->getTitre()."' name='appName'>

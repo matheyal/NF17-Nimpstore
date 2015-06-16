@@ -1,6 +1,7 @@
 <html>
 <?php include("base.php"); ?>
 <?php
+
 $appName = $_GET['appName'];
 
 try {

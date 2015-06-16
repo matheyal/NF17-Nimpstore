@@ -1,7 +1,6 @@
 <html>
 <?php include("base.php");?>
 
-
 <?php // Personalisation de la page index si l'utilisateur est loggé
 echo("<h1 align='center'> Bienvenue sur le NimpStore $login ! </h1>");
 ?>

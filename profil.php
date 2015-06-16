@@ -1,5 +1,6 @@
 <html>
 <?php include("base.php"); ?>
+
 <h1> Gestion du profil </h1>
 <h2> Informations personnelles </h2>
     

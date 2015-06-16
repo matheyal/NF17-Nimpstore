@@ -4,7 +4,6 @@
 
 include("base.php");
 
-//Récupération de l'attribut en cas d'échec d'inscription
 if (isset($_GET['err']))
     $err =  $_GET['err'];
 else
