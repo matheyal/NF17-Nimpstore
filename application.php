@@ -30,14 +30,14 @@ try{ //récupération du nom de l'app par GET, test d'éventuels problèmes.
                 <div align='center'>
                 <h2> $appName </h2>
                 <p> Nom de l'éditeur de l'application : $editorName
-                <ul>
-                <li>$editorContact</li>
-                <li>$editorSite</li>
-                </ul>
+                <p>$editorContact</p>
+                <p>$editorSite</p>
                 </p>
                 <p>$description</p>");
 
-        $queryString = "SELECT id FROM produit_achete pa WHERE proprietaire='$login' AND produit='$appName'";
+        $queryString = "SELECT pa.id, p.abonnement
+                        FROM produit_achete pa INNER JOIN produit p ON pa.produit=p.titre
+                        WHERE proprietaire='$login' AND produit='$appName';";
         $query = pg_query($idConnex, $queryString);
         $res = pg_fetch_array($query);
 
