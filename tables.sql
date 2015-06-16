@@ -76,6 +76,7 @@ create table produit (
 	ressource_pour varchar(40) references produit(titre),
 	editeur integer references editeur(id) NOT NULL,
 	prix real NOT NULL,
+	abonnement boolean DEFAULT 'false',
 	CHECK (prix > 0)
 );
 
@@ -113,9 +114,8 @@ create table avis (
 create table abonnement (
 	--app varchar(40) references produit(titre), --> inutile car déjà présent dans la table achat
 	achat integer references achat(id) PRIMARY KEY,
-	automatique integer,
+	automatique boolean,
 	nb_mois integer,
-	CHECK (automatique between 0 and 1),
 	CHECK (nb_mois > 0)
 );
 
