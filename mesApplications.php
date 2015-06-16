@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php session_start();
 if (isset($_SESSION['login'])) {
     $login=$_SESSION['login'];
@@ -7,19 +8,10 @@ else{
     $login=NULL;
 }
 ?>
+=======
+>>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
 <html>
-<head>
-    <title>NimpStore - Mes Applications</title>
-   <meta charset='utf-8'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
-<?php include("navbar.php");
-      include("idConnex.php");
-    require("class/class.php");
-?>
+<?php include("base.php");?>
 
 <h1>Vos applications <?php echo $login; ?></h1>
 
@@ -40,17 +32,29 @@ if (is_null($res['titre'])){
 }else{
     while(!is_null($res['titre'])){
       echo("<p>");
+        echo "<div class=container>";
         $app = new application($res['titre'],$res['editname'],$res['prix']);
         $app->afficher();
-        if(is_null($res['commentaire']) || $res['auteur'] != $login) echo("<form method='POST' action='avis.php'>
-                                               <input type='hidden' value='".$app->getTitre()."' name='appName'>
-                                              Votre note sur 5 : <input type='text' name='note'> <br/>
-                                              Votre commentaire sur l'application : <input type='text' name='com'><br/>
-                                              <input type='submit' class='comButton' value='Envoyer votre avis'>
-                                               </form></p>");
+        
+        echo "<div class=commentaire>";
+        
+        if(is_null($res['commentaire']) || $res['auteur'] != $login){
+            echo("<form method='POST' action='avis.php'>
+                <input type='hidden' value='".$app->getTitre()."' name='appName'>
+                Votre note sur 5 : <input type='text' name='note' REQUIRED> <br/>
+                Votre commentaire sur l'application : <input type='text' name='com'><br/>
+                <input type='submit' class='comButton' value='Envoyer votre avis'>
+                </form></p>");
+        }
         else echo("<br/>Vous avez déjà déposé un avis sur cette app !</p>");
+<<<<<<< HEAD
         echo'<form method="GET" action="ressource.php">Allez voir si des ressources sont disponible pour cet app !<input type="submit" value="Voir !"><input type="hidden" value="'.$res['titre'].'" name="appName"></form>';
     $res = pg_fetch_array($query);
+=======
+            echo "</div>";
+        echo "</div>";
+        $res = pg_fetch_array($query);
+>>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
     }
 }
 ?>

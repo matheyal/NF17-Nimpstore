@@ -1,25 +1,8 @@
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login=$_SESSION['login'];
-else{
-    session_destroy();
-    $login=NULL;
-}
-?>
 <!-- ORDONNER AVEC ORDER BY POUR REGLER LES BUGS OU UTILISER -->
 
 <html>
-<head>
-<meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
+<?php include("base.php"); ?>
 <?php
-include("idConnex.php");
-include("navbar.php");
-require("class/class.php");
 
 if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
 

@@ -102,6 +102,7 @@ if (!isset($err)) {
 
     if ($achat) {
 
+<<<<<<< HEAD
         if (isset($_POST['loginFriend'])) {
              $queryString = "INSERT INTO achat VALUES (nextval('seq_achat'),'$login','".$_POST['loginFriend']."','$appName','".date("d-m-Y")."') ";
                 $query = pg_query($idConnex, $queryString);
@@ -112,6 +113,10 @@ if (!isset($err)) {
           $queryString = "INSERT INTO achat VALUES (nextval('seq_achat'),'$login','$login','$appName','".date("d-m-Y")."') ";
                 $query = pg_query($idConnex, $queryString);  
          }
+=======
+        if (isset($_POST['loginFriend']))
+            $login = $_POST['loginFriend'];
+>>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
         $queryString = "INSERT INTO produit_achete VALUES (nextval('seq_produit_achete'),'$appName','$login') ";
         $query = pg_query($idConnex, $queryString);
 

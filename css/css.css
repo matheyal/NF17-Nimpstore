@@ -51,3 +51,9 @@ body{
     text-decoration: none;
     display: block;
 }
+
+.commentaire{
+    position: relative;
+    display: inline-block;
+
+}

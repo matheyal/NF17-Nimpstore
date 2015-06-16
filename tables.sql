@@ -26,6 +26,8 @@ create table client (
 	nom varchar(30) NOT NULL,
 	prenom varchar(30) NOT NULL,
 	mdp varchar(15) NOT NULL,
+	status varchar(8) NOT NULL DEFAULT='admin',
+	CHECK (status in ('admin', 'client')),
 	UNIQUE (nom,prenom)
 );
 
@@ -78,7 +80,7 @@ create table produit (
 );
 
 create view v_application as
-	select * from produit where ressource_pour IS NULL;
+	select titre, description, editeur, prix from produit where ressource_pour IS NULL;
 
 create view v_ressource as 
 	select * from produit where ressource_pour IS NOT NULL;

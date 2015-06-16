@@ -1,26 +1,15 @@
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login=$_SESSION['login'];
-else{
-    session_destroy();
-    $login=NULL;
-}
-?>
-<?php //Récupération de l'attribut en cas d'échec d'inscription
+<html>
+
+<?php
+
+include("base.php");
+
 if (isset($_GET['err']))
     $err =  $_GET['err'];
 else
     $err = NULL;
 ?>
-<html>
-<head>
-    <title>Inscription</title>
-    <meta charset='utf-8'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
+
 <form Method='POST' action='redirectInscript.php'> <p>
         Nom : <input type='text' name='nom' REQUIRED AUTOFOCUS> <br/>
         Prenom : <input type='text' name='prenom' REQUIRED> <br/>
@@ -36,5 +25,7 @@ if ($err == 1) {
     ");
 }
 ?>
+
+<?php include("scriptJS.php"); ?>
 </body>
 </html>
