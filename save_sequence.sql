@@ -1,0 +1,16 @@
+\copy abonnement to 'abonnement.csv' csv header
+\copy achat to 'achat.csv' csv header
+\copy application to 'application.csv' csv header
+\copy avis to 'avis.csv' csv header
+\copy carte_bancaire to 'carte_bancaire.csv' csv header
+\copy carte_prepayee to 'carte_prepayee.csv' csv header
+\copy client to 'client.csv' csv header
+\copy editeur to 'editeur.csv' csv header
+\copy installe_sur to 'installe_sur.csv' csv header
+\copy modele to 'modele.csv' csv header
+\copy produit to 'produit.csv' csv header
+\copy produit_achete to 'produit_achete.csv' csv header
+\copy produit_disponible_pour to 'produit_disponible_pour.csv' csv header
+\copy ressource to 'ressource.csv' csv header
+\copy systeme_exploitation to 'systeme_exploitation.csv' csv header
+\copy terminal to 'terminal.csv' csv header

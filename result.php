@@ -1,18 +1,8 @@
-
 <!-- ORDONNER AVEC ORDER BY POUR REGLER LES BUGS OU UTILISER -->
 
 <html>
-<head>
-<meta charset="utf-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-</head>
-<body>
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login = $_SESSION['login'];
-include("idConnex.php");
-include("navbar.php");
+<?php inlude("base.php"); ?>
+<?php
 
 if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
 
@@ -23,63 +13,7 @@ if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
         $res = pg_fetch_array($query);
 
         if (!is_null($res['nom'])) {
-                $editorName = $res['nom'];
-                $editorContact = $res['contact'];
-                $editorSite = $res['url'];
-                $description = $res['description'];
-
-                echo("
-                <div align='center'>
-                <h2> $appName </h2>
-                <p> Nom de l'éditeur de l'application : $editorName
-                <ul>
-                <li>$editorContact</li>
-                <li>$editorSite</li>
-                </ul>
-                </p>
-                <p>$description</p>");
-
-            $queryString = "SELECT id FROM produit_achete pa WHERE proprietaire='$login' AND produit='$appName'";
-            $query = pg_query($idConnex, $queryString);
-            $res = pg_fetch_array($query);
-
-            if (!is_null($res['id'])) {
-                echo("Vous possédez cette application ! Vous pouvez l'offrir à un ami !");
-                $_SESSION['alreadyBought'] = 1;
-                echo("<form Method='POST' action='achat.php'> <input value='Achat pour un ami !' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
-
-            }
-            else {
-                $_SESSION['alreadyBought'] = 0;
-                echo("<form Method='POST' action='achat.php'> <input value='Achat' type='submit'><input name='nom' value='$appName' type='hidden'></form></div>");
-            }
-
-        /* Insertion de la partie avis */
-
-            // Interogation de la BDD
-
-            $queryString = "
-SELECT commentaire AS com,note AS mark, auteur ,app AS appli, moy
-FROM avis a ,
-  (SELECT AVG(note) AS moy,app AS appl
-  FROM avis
-  WHERE app='$appName'
-  GROUP BY(appl)) AS R2
-WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
-            $query = pg_query($idConnex, $queryString);
-            $res = pg_fetch_array($query);
-
-
-
-            echo("<div class='avisContainer'>
-                <div class='note' align='center'> Note Moyenne de l'application : ".$res['moy']." / 5 </div><br/><br/>
-            ");
-
-            while (!is_null($res['mark'])) {
-                echo("<p align='center'>--------------</p><br/><div class='singleAvisDisplay' align='center'><p>Note délivrée par ".$res['auteur']." : ".$res['mark']."</p><p>Commentaire : ".$res['com']."</p></div> ");
-                $res = pg_fetch_array($query);
-            }
-
+                header("Location: application.php?app=$appName");
         }
         else throw new Exception("Application Introuvable : Veuillez passer par la recherche avancée !");
     }
@@ -90,7 +24,7 @@ WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
 }
 else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] == '0'))
 {
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND pr.systeme=$OS";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND pr.systeme=$OS";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -102,8 +36,8 @@ else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] 
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+            $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }
@@ -112,7 +46,7 @@ else if (isset($_GET['OS']) && (($OS = $_GET['OS']) != '0') && ($_GET['editor'] 
 
 else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
 
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND a.editeur='$editor'";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre AND a.editeur='$editor'";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -124,8 +58,8 @@ else if (isset($_GET['editor']) && (($editor = $_GET['editor']) != '0')) {
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+            $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }
@@ -136,7 +70,7 @@ else {
 
 
 
-    $querystring = "SELECT DISTINCT  titre FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre";
+    $querystring = "SELECT DISTINCT a.titre,e.nom,a.prix FROM v_application a, editeur e,produit_disponible_pour pr WHERE a.editeur = e.id AND pr.produit = a.titre";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_all($query);
 
@@ -148,8 +82,8 @@ else {
             <ul>");
 
         while ($res = pg_fetch_array($query)) {
-            $appName = $res['titre'];
-            echo("<li><a href='result.php?recherche=$appName'> $appName </a>");
+           $app = new application($res['titre'],$res['nom'],$res['prix']);
+            $app->afficher();
         }
         echo("</ul></div>");
     }

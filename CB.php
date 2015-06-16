@@ -1,18 +1,6 @@
 <html>
-<head>
-    <meta charset='utf-8'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
-
-<?php session_start();
-if (isset($_SESSION['login']))
-    $login = $_SESSION['login'];
-include("idConnex.php");
-include("navbar.php");
-
+<?php include("base.php"); ?>
+<?php
 $appName = $_GET['appName'];
 
 try {
@@ -116,11 +104,7 @@ if (isset($_GET['err'])) {
   <?php      echo("<input type='hidden' value='$appName' name='appName'>"); ?>
         <input type='submit' value='Finalisez votre achat'></form>
 
-<script src="js/ourFunction.js"></script>
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery.localscroll.js"></script>
-<script src="js/jquery.scrollTo.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<?php include("scriptJS.php"); ?>
 
 </body>
 </html>

@@ -1,10 +1,8 @@
-<?php session_start();
-$login=$_SESSION['login'];
-?>
+<html>
+<?php include("base.php");?>
 
 <?php
 if (isset($_POST['ajout'])){
-    include("idConnex.php");
     $num=$_POST['num_serie'];
     $modele=$_POST['modele'];
     
@@ -28,19 +26,19 @@ if (isset($_POST['ajout'])){
     }
     
 }
-?>
-<html>
-<head>
-    <title>NimpStore - Mes Applications</title>
-   <meta charset='utf-8'>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
-<?php include("navbar.php");
-      include("idConnex.php");
-      require("class/class.php");
+if (isset($_POST['suppression'])){
+    $num=$_POST['modele_num'];
+    
+    $querystring="SELECT numero_serie FROM terminal t WHERE t.numero_serie='$num' AND t.proprietaire='$login'";
+    $query=pg_query($idConnex,$querystring);
+    $res=pg_fetch_array($query);
+    if (!is_null($res['numero_serie'])){        
+        $query=pg_query("DELETE FROM terminal t WHERE t.numero_serie = '".$res['numero_serie']."'")
+                or die("Erreur lors de la suppression, contacter l'administrateur");
+
+        //header("Location:mesTerminaux.php");
+    }
+}
 ?>
 
 <h1>Vos Terminaux <?php echo $login; ?></h1>
@@ -79,14 +77,35 @@ echo "<p>Vous n'avez pas encore renseigné d'informations concernant vos apparei
         $res = pg_fetch_array($query) OR DIE ("BDD buggée !");
 
         while(!is_null($res['designation'])) { //Boucle for pour implémenter le bon nombre de choix
-        $nom = $res['designation'];
-        echo("<option> $nom ");
+            $nom = $res['designation'];
+            echo("<option> $nom ");
             $res = pg_fetch_array($query);
-            }?>
+        }?>
      </select>
     <input type="submit" value="Ajouter" name="ajout">
 </form>
 
+<h1>Supprimer un terminal</h1>
+<form method="post" action="mesTerminaux.php">
+    <select name="modele_num" required>
+    <option disabled>Terminal</option>
+    <option disabled>──────────</option>
+    <?php //options
+        $querystring="SELECT R1.numero_serie,m.designation FROM (client c INNER JOIN terminal t ON c.login=t.proprietaire)R1
+                INNER JOIN modele m ON R1.modele=m.id
+                WHERE R1.login='$login'"; //Query pour prendre les infos des terminaux
+        $query = pg_query($idConnex,$querystring);
+        $res = pg_fetch_array($query) OR DIE ("BDD buggée !");
+
+        while(!is_null($res['designation'])) { //Boucle for pour implémenter le bon nombre de choix
+            $nom = $res['designation'];
+            echo("<option disabled> ".$res['designation']." : </option>");
+            echo("<option>".$res['numero_serie']."</option>");
+            $res = pg_fetch_array($query);
+        }?>
+     </select>
+    <input type="submit" value="Supprimer" name="suppression">
+</form>
     
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script src="js/jquery.localscroll.js"></script>

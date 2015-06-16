@@ -1,11 +1,16 @@
-<?php //Récupération de l'attribut en cas d'échec d'inscription
+<html>
+
+<?php
+
+include("base.php");
+
+//Récupération de l'attribut en cas d'échec d'inscription
 if (isset($_GET['err']))
     $err =  $_GET['err'];
 else
     $err = NULL;
 ?>
-<html>
-<body>
+
 <form Method='POST' action='redirectInscript.php'> <p>
         Nom : <input type='text' name='nom' REQUIRED AUTOFOCUS> <br/>
         Prenom : <input type='text' name='prenom' REQUIRED> <br/>
@@ -21,5 +26,7 @@ if ($err == 1) {
     ");
 }
 ?>
+
+<?php include("scriptJS.php"); ?>
 </body>
 </html>

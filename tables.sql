@@ -26,6 +26,8 @@ create table client (
 	nom varchar(30) NOT NULL,
 	prenom varchar(30) NOT NULL,
 	mdp varchar(15) NOT NULL,
+	status varchar(8) NOT NULL DEFAULT='admin',
+	CHECK (status in ('admin', 'client')),
 	UNIQUE (nom,prenom)
 );
 

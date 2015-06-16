@@ -25,34 +25,48 @@
       </form>
       <ul class="nav navbar-nav navbar-right">' ?>
         <?php
-        echo (is_null($login))? '<button type="button" class="btn btn-default navbar-btn"
-                                        onclick="self.location.href=\'inscription.php\'">S\'inscrire</button>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Connection<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-              <form method="post" action="connection.php">
-            <label for="inputLogin" class="sr-only">Login</label> <!-- permet d ecrire login sans mettre de valeur par defaut -->
-            <li><input type="text" name="login" placeholder="Login" REQUIRED AUTOFOCUS></li> <!-- Empeche les champs vides + autofocus -->
-            <label for="inputPassword" class="sr-only">Password</label>
-            <li><input type="password" name="pass" placeholder="Password" REQUIRED></li>
-            <li><input type="submit" name="submitLog" value="Connection" ></li>
-                  </form>
-          </ul>
-        </li>
-        ' //DEFINIR ACTION ONCLICK pour le bouton s'inscrire
-            // on affiche soit le bouton s'inscrire + connection, soit les options profil selon si l'utilisateur est connecté ou pas
-        : //Sinon
-        '<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'.$_SESSION['login'].'<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="profil.php">Profil</a></li>
-            <li><a href="mesApplications.php">Mes Applications</a></li>
-            <li><a href="mesTerminaux.php">Mes Terminaux</a></li>
-            <li><a href="#">Faire un cadeau</a></li>
-            <li class="divider"></li>
-            <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
-          </ul>
-        </li>'
+        if (is_null($login)){
+          echo '<button type="button" class="btn btn-default navbar-btn" onclick="self.location.href=\'inscription.php\'">S\'inscrire</button>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Connection<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <form method="post" action="connection.php">
+                  <label for="inputLogin" class="sr-only">Login</label> <!-- permet d ecrire login sans mettre de valeur par defaut -->
+                  <li><input type="text" name="login" placeholder="Login" REQUIRED AUTOFOCUS></li> <!-- Empeche les champs vides + autofocus -->
+                  <label for="inputPassword" class="sr-only">Password</label>
+                  <li><input type="password" name="pass" placeholder="Password" REQUIRED></li>
+                  <li><input type="submit" name="submitLog" value="Connection" ></li>
+                        </form>
+                </ul>
+                </li>';
+          } //DEFINIR ACTION ONCLICK pour le bouton s'inscrire
+        else{    // on affiche soit le bouton s'inscrire + connection, soit les options profil selon si l'utilisateur est connecté ou pas
+          if($_SESSION['admin'] == 0) {
+            echo '<li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'.$_SESSION['login'].'<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="profil.php">Profil</a></li>
+                        <li><a href="mesApplications.php">Mes Applications</a></li>
+                        <li><a href="mesTerminaux.php">Mes Terminaux</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
+                      </ul>
+                    </li>';
+          }
+          else{
+            echo '<li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'.$_SESSION['login'].'<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="profil.php">Profil</a></li>
+                        <li><a href="mesApplications.php">Mes Applications</a></li>
+                        <li><a href="mesTerminaux.php">Mes Terminaux</a></li>
+                        <li><a href="#">Vue administrateur</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
+                      </ul>
+                    </li>';
+          }
+        }
             ?>
          
           
