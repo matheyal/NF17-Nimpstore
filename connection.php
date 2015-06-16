@@ -15,7 +15,7 @@ else if (2==fLogin($login,$pass,$idConnex)) {  //Ne pas oublier de mettre en pla
     $_SESSION['login'] = $login;
     $_SESSION['alreadyBought'] = 0;
     $_SESSION['admin'] = 1;
-    header('Location: admin.php');
+    header('Location: index.php');
 }
 else {
     $err = 1;

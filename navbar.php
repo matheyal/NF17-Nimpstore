@@ -40,34 +40,21 @@
                 </ul>
                 </li>';
           } //DEFINIR ACTION ONCLICK pour le bouton s'inscrire
-        else{    // on affiche soit le bouton s'inscrire + connection, soit les options profil selon si l'utilisateur est connecté ou pas
-          if($_SESSION['admin'] == 0) {
+        else{    // on affiche soit le bouton s'inscrire + connection, soit les options profil selon si l'utilisateur est connecté
             echo '<li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'.$_SESSION['login'].'<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                         <li><a href="profil.php">Profil</a></li>
                         <li><a href="mesApplications.php">Mes Applications</a></li>
-                        <li><a href="mesTerminaux.php">Mes Terminaux</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
-                      </ul>
-                    </li>';
+                        <li><a href="mesTerminaux.php">Mes Terminaux</a></li>';
+            if(!is_null($admin))
+              echo '<li><a href="admin.php">Vue administrateur</a></li>';
+            echo '<li class="divider"></li>
+                  <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
+                  </ul>
+                  </li>';
           }
-          else{
-            echo '<li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'.$_SESSION['login'].'<span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="profil.php">Profil</a></li>
-                        <li><a href="mesApplications.php">Mes Applications</a></li>
-                        <li><a href="mesTerminaux.php">Mes Terminaux</a></li>
-                        <li><a href="#">Vue administrateur</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>
-                      </ul>
-                    </li>';
-          }
-        }
-            ?>
+          ?>
          
           
           

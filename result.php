@@ -1,7 +1,7 @@
 <!-- ORDONNER AVEC ORDER BY POUR REGLER LES BUGS OU UTILISER -->
 
 <html>
-<?php inlude("base.php"); ?>
+<?php include("base.php"); ?>
 <?php
 
 if (isset($_GET['recherche']) && ($_GET['recherche'] != "0")) {
