@@ -30,7 +30,7 @@ else
 
 
 try {
-    $querystring = "SELECT titre,nom,contact,url,description FROM v_application a,editeur e WHERE a.editeur=e.id AND a.titre='$appName'";
+    $querystring = "SELECT titre,nom,contact,url,description FROM produit p,editeur e WHERE p.editeur=e.id AND p.titre='$appName'";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_array($query);
 
@@ -70,10 +70,11 @@ echo("
     <option value='CB.php?appName=$appName'>Carte Bancaire
     <option value='CP.php?appName=$appName'>Carte Prépayée
 </select>
+</p>
 
 ");
 if(isset($_GET['err']))
-    echo("Votre ami possède déjà l'application !");
+    echo("<p>Votre ami possède déjà l'application !</p>");
     ?>
 
 <script src="js/ourFunction.js"></script>

@@ -23,7 +23,7 @@ include("navbar.php");
 $appName = $_GET['appName'];
 
 try {
-    $querystring = "SELECT titre,nom,contact,url,description FROM v_application a,editeur e WHERE a.editeur=e.id AND a.titre='$appName'";
+    $querystring = "SELECT titre,nom,contact,url,description FROM produit p,editeur e WHERE p.editeur=e.id AND p.titre='$appName'";
     $query = pg_query($idConnex, $querystring);
     $res = pg_fetch_array($query);
 

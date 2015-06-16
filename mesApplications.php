@@ -1,6 +1,7 @@
 <?php session_start();
-if (isset($_SESSION['login']))
+if (isset($_SESSION['login'])) {
     $login=$_SESSION['login'];
+  $admin=$_SESSION['admin']; }
 else{
     session_destroy();
     $login=NULL;
@@ -48,7 +49,8 @@ if (is_null($res['titre'])){
                                               <input type='submit' class='comButton' value='Envoyer votre avis'>
                                                </form></p>");
         else echo("<br/>Vous avez déjà déposé un avis sur cette app !</p>");
-        $res = pg_fetch_array($query);
+        echo'<form method="GET" action="ressource.php">Allez voir si des ressources sont disponible pour cet app !<input type="submit" value="Voir !"><input type="hidden" value="'.$res['titre'].'" name="appName"></form>';
+    $res = pg_fetch_array($query);
     }
 }
 ?>
