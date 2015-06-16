@@ -54,3 +54,19 @@ function fDisabInput() {
         textInput.disabled = !isChecked;
 
 }
+
+function fPromptCom() {
+
+    var com, note;
+    note = prompt("Donnez votre note sur 5");
+    com = prompt("Donnez votre avis sur cette appli !");
+
+    valueNote = document.getElementsByTagName("note");
+    for (i=0;i<valueNote.length;i++) valueNote[i].setAttribute("value",note);
+ 
+ valueCom = document.getElementsByTagName("com");
+    for (i=0;i<valueCom.length;i++) valueCom[i].setAttribute("value",com);
+
+        alert(valueNote[0].getAttribute("value"));
+    alert("Bouxaaaa");
+}
