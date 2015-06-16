@@ -18,7 +18,12 @@ if(isset($_POST['carte_prepayee'])){
     else{
         $querystring="INSERT INTO carte_prepayee VALUES (nextval('seq_carte_prepayee'), $montant, $montant, '01-$mois-$annee', '$login')";
 		$query=pg_query($idConnex,$querystring) or die("Erreur lors de l'insertion, contacter l'administrateur");
-    	echo("<p align='center'>Carte prépayée accordée avec succès</p>");
+    	
+		$querystring="SELECT MAX(numero) FROM carte_prepayee";
+		$query = pg_query($idConnex, $querystring) or die("Erreur lors de l'insertion, contacter l'administrateur");
+    	$res = pg_fetch_array($query);
+    	$numero = $res['max'];
+    	echo("<p align='center'>Carte prépayée n°".$numero." accordée avec succès</p>");
     }
 
 }
@@ -91,7 +96,6 @@ if (isset($_POST['deld_droits_admin'])){
 ?>
 <h1 align = "center">Administration Nimpstore</h1>
 <h2>Ajouter une application au catalogue</h2>
-<p>
 <form method='POST' action='ajoutApplication.php'>
 	Titre : <input type='text' name='titre' REQUIRED> <br/>
 	Description : <input type='text' name='description' REQUIRED><br/>
@@ -110,7 +114,7 @@ if (isset($_POST['deld_droits_admin'])){
             $res = pg_fetch_array($query);
         }?>
      </select><br/>
-     Prix: <input type='text' name='prix' REQUIRED><br/>
+     Prix: <input type='number' name='prix' min='0' value='0' step='0.01' REQUIRED> <br/>
 	<input type='submit' value='Ajouter application'>
 </form>
 
@@ -127,7 +131,7 @@ if (isset($_POST['deld_droits_admin'])){
 
         while(!is_null($res['titre'])) { //Boucle for pour implémenter le bon nombre de choix
             $titre = $res['titre'];
-            echo("<option> $titre ");
+            echo("<option> $titre </option>");
             $res = pg_fetch_array($query);
         }?>
      </select><br/>
@@ -138,24 +142,24 @@ if (isset($_POST['deld_droits_admin'])){
 <h2>Accorder carte prépayée</h2>
 <form method='POST' action='admin.php'>
     Login : <input type='text' name='login' REQUIRED> <br/>
-    Montant : <input type='number' name='montant' min='0' REQUIRED> <br/>
+    Montant : <input type='number' name='montant' min='0' value='0' REQUIRED> <br/>
     Date d'expiration :
     <!-- Combobox mois -->
 	<select name='mois' id='mois' REQUIRED>
-	    <option value='0' selected='selected' disabled="disabled">--
+	    <option value='0' selected='selected' disabled="disabled">--</option>
 	        <?php
 	        for ($i = 1;$i <13; $i++)
-	            echo("<option value='$i'>$i");
+	            echo("<option value='$i'>$i</option>");
 	        ?>
 	</select>
 
 	<!-- Combobox année -->
 	<select name='annee' id='annee' REQUIRED>
-	    <option value='0' selected='selected' disabled="disabled">--
+	    <option value='0' selected='selected' disabled="disabled">--</option>
 	        <?php
 	        $currentYear = 2015;
 	        for ($i = $currentYear;$i < ($currentYear + 5); $i++)
-	            echo("<option value='$i'>$i");
+	            echo("<option value='$i'>$i</option>");
 	        ?>
 	</select>
     <input type='submit' value='Valider' name='carte_prepayee'>
@@ -182,4 +186,6 @@ if (isset($_POST['deld_droits_admin'])){
     <input type='submit' value='Accorder' name='add_droits_admin'>
     <input type='submit' value='Retirer' name='del_droits_admin'>
 </form>
+<?php include("scriptJS.php");?>
+</body>
 </html>

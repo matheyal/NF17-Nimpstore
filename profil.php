@@ -50,6 +50,17 @@ while($res=pg_fetch_array($query)){
     echo "<li>".$res['titre']." de ".$res['prenom']." ".$res['nom']." le ".$res['date']."</li>";
 }
 echo "</ul>";
+
+//Affichage des cartes prépayées du client
+$querystring = "SELECT numero, montant_courant, date_expiration FROM carte_prepayee WHERE client='$login'";
+$query = pg_query($idConnex,$querystring);
+
+echo "<h2>Cartes prépayées</h2>";
+echo "<ul>";
+while($res=pg_fetch_array($query)){
+    echo "<li>N°".$res['numero']." valable jusqu'au ".$res['date_expiration']." : reste ".$res['montant_courant']."€</li>";
+}
+echo "</ul>";
 ?>
     
     

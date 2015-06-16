@@ -47,7 +47,7 @@
                         <li><a href="profil.php">Profil</a></li>
                         <li><a href="mesApplications.php">Mes Applications</a></li>
                         <li><a href="mesTerminaux.php">Mes Terminaux</a></li>';
-            if(!is_null($admin))
+            if(isset($admin) && !is_null($admin))
               echo '<li><a href="admin.php">Vue administrateur</a></li>';
             echo '<li class="divider"></li>
                   <li><a href="#" onclick="self.location.href=\'deco.php\'" >Déconnection</a></li>

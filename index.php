@@ -14,9 +14,9 @@ $querystring="SELECT * FROM v_application va INNER JOIN editeur e ON va.editeur=
 $query=pg_query($querystring);
 
 $i=0;
-for ($i=0;$i<5;$i++){
+for ($i=0;$i<7;$i++){
     $res=pg_fetch_array($query);
- if (!is_null($res)){  //création d'un objet app puis affichage
+ 	if (!is_null($res)){  //création d'un objet app puis affichage
         $app = new application($res['titre'],$res['nom'],$res['prix']);
         $app->afficher();
  }

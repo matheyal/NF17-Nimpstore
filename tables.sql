@@ -80,7 +80,7 @@ create table produit (
 );
 
 create view v_application as
-	select * from produit where ressource_pour IS NULL;
+	select titre, description, editeur, prix from produit where ressource_pour IS NULL;
 
 create view v_ressource as 
 	select * from produit where ressource_pour IS NOT NULL;
