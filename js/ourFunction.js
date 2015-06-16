@@ -70,3 +70,7 @@ function fPromptCom() {
         alert(valueNote[0].getAttribute("value"));
     alert("Bouxaaaa");
 }
+
+function getComboBoxValue(boxId){
+    return document.getElementById(boxId).value;
+}
