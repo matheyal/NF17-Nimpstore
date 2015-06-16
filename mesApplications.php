@@ -1,13 +1,3 @@
-<?php session_start();
-if (isset($_SESSION['login'])) {
-    $login=$_SESSION['login'];
-  $admin=$_SESSION['admin']; }
-else{
-    session_destroy();
-    $login=NULL;
-}
-?>
-
 
 <html>
 <?php include("base.php");?>

@@ -1,7 +1,19 @@
 <html>
 <?php include("base.php");?>
-    
 <?php
+if (isset($_POST["aboSubmit"])){
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+}
     $appName=$_POST["nom"];
     $querystring="SELECT prix FROM produit p WHERE p.titre='$appName'";
     $query=pg_query($idConnex,$querystring);
