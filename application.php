@@ -41,11 +41,7 @@ try{ //récupération du nom de l'app par GET, test d'éventuels problèmes.
         $query = pg_query($idConnex, $queryString);
         $res = pg_fetch_array($query);
 
-<<<<<<< HEAD
         /*Test pour savoir quoi afficher à l'utilisateur en fonction de la connection et de l'achat*/
-=======
-        /*Test pour savoir quoi afficher à l'utilisateur en fonction de la connexion et de l'achat*/
->>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
 
     if (isset($login))
         if (!is_null($res['id'])) {
@@ -79,15 +75,9 @@ WHERE a.app='$appName'"; // #MEGAREQUETEDUTURFU!!!
 
 
 if (!is_null($res['com'])) {
-<<<<<<< HEAD
-        echo("<div class='avisContainer'>
-                <div class='note' align='center'> Note Moyenne de l'application : ".$res['moy']." / 5 </div><br/><br/>
-=======
         $moy = round($res['moy'],1);
         echo("<div class='avisContainer'>
-                <div class='note' align='center'> Note Moyenne de l'application : ".$moy." / 5 </div><br/><br/>
->>>>>>> 8f643ff8d8df66ab25e76169bb69af5be3273e20
-            ");
+                <div class='note' align='center'> Note Moyenne de l'application : ".$moy." / 5 </div><br/><br/>");
 
         while (!is_null($res['mark'])) {
             echo("<p align='center'>--------------</p><br/><div class='singleAvisDisplay' align='center'><p>Note délivrée par ".$res['auteur']." : ".$res['mark']."</p><p>Commentaire : ".$res['com']."</p></div> ");
