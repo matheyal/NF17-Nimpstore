@@ -51,7 +51,7 @@ $query=pg_query($idConnex,$querystring);
 $res=pg_fetch_array($query);
 
 if (is_null($res['designation'])){
-echo "<p>Vous n'avez pas encore renseigné d'informations concernant vos appareils! Vous pourrez bientôt en ajouter autrement qu'en demandant à Alexis Mathey de modifier les tables ! #comingsoon</p>";
+echo "<p>Vous n'avez pas encore renseigné d'informations concernant vos appareils! Vous pouvez le faire via le formulaire ci-dessous.</p>";
 }else{
     while(!is_null($res['designation'])){
         echo "<p>Modèle : ".$res['designation']."</p>";
